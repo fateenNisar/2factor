@@ -1,0 +1,64 @@
+{
+  "name": "2factor-sdk",
+  "version": "1.0.0",
+  "description": "A TypeScript SDK for sending and validating OTPs with support for rate limiting.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsup src/index.ts --format esm,cjs --dts --clean --outDir lib",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "keywords": [
+    "2factor",
+    "2-factor",
+    "OTP",
+    "2factor-sdk",
+    "2-factor-sdk",
+    "authentication",
+    "rate-limiting",
+    "2factorin",
+    "otp-validation",
+    "two-factor-authentication",
+    "2fa",
+    "security",
+    "authentication-sdk",
+    "sms-otp",
+    "email-otp",
+    "otp-service",
+    "token-authentication",
+    "two-factor-api"
+  ],
+  "author": "fateennisar",
+  "license": "MIT",
+  "dependencies": {
+    "@upstash/ratelimit": "^2.0.5",
+    "@upstash/redis": "^1.34.3",
+    "2factor-sdk": "file:2factor-sdk-1.0.0.tgz",
+    "axios": "^1.7.9",
+    "tsc": "^2.0.4",
+    "typescript": "^5.7.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.2",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.0.1"
+  }
+}
