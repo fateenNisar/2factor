@@ -6,7 +6,7 @@ An sdk for [2Factor.in]("https://2factor.in") SMS OTP service with support for r
 ## Installation
 
 ```bash
-npm install @2factor-sdk
+npm install 2factor-sdk
 ```
 
 ## Quick Start
