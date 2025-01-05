@@ -1,4 +1,17 @@
 import { z } from 'zod';
+
+const otpSchema = z.string().refine(
+  (val) => {
+    // Check if it's only numbers
+    const isNumeric = /^\d+$/.test(val)
+    // Check if length is 4 or 6
+    const validLength = val.length === 4 || val.length === 6
+    return isNumeric && validLength
+  },
+  {
+    message: "OTP must be either 4 or 6 digits and contain only numbers"
+  }
+)
 export const constructorSchema = z
   .object({
     apiKey: z.string(),
@@ -16,7 +29,7 @@ export const constructorSchema = z
   });
 export const phoneSchema = z
   .string()
-  .regex(/^[7-9]{1}[0-9]{9}$/, { message: 'Invalid phone number' });
+  .regex(/^[6-9]{1}[0-9]{9}$/, { message: 'Invalid phone number' });
 
 export const sendOTPSchema = z.object({
   phoneNumber: phoneSchema,
@@ -56,10 +69,7 @@ export const sendAndReturnOTPSchema = z.object({
 export const sendCustomOTPSchema = z.object({
   phoneNumber: phoneSchema,
   templateName: z.string().optional(),
-  otp: z.string().regex(/^\d{4}(\d{2})?$/, {
-    message:
-      'Invalid Otp . OTP must be 4 or 6 characters and contain only numbers',
-  }),
+  otp:otpSchema,
   interval: z
     .string()
     .regex(/^\d+\s[smhd]$/, {
@@ -73,14 +83,14 @@ export const sendCustomOTPSchema = z.object({
 })
 
 export const verifyByUIDSchema = z.object({
-  otp: z.string().regex(/^\d{4,6}$/, 'OTP must be 4 or 6 digits long'),
+  otp:otpSchema,
   UID: z
     .string()
     .min(36, { message: 'Invalid UID length' })
     .max(36, { message: 'Invalid UID length' }),
 });
 export const verifyByPhoneSchema = z.object({
-  otp: z.string().regex(/^\d{4,6}$/, 'OTP must be 4 or 6 digits long'),
+  otp:otpSchema,
   phoneNumber: phoneSchema,
 });
 

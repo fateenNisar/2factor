@@ -54,15 +54,14 @@ export class TWOFactor extends Base {
       const {
         phoneNumber,
         templateName,
-        otpLength = 4,
+        otpLength =4,
         interval,
         limit,
       } = data;
-      sendOTPSchema.parse({
-        phoneNumber: data.phoneNumber,
-        templateName: data.templateName,
-      });
+      sendOTPSchema.parse(data);
 
+    
+      
       // check rate limit if redis url is provided
       if (this.upstashUrl && this.upstashToken) {
         await rateLimit({
@@ -75,7 +74,7 @@ export class TWOFactor extends Base {
       }
       const urlOptions = { phoneNumber, templateName, apiKey: this.apiKey };
       const url =
-        otpLength === 4
+        otpLength && otpLength === 4
           ? gen4DigitOTPUrl(urlOptions)
           : gen6DigitOTPUrl(urlOptions);
 
@@ -96,10 +95,7 @@ export class TWOFactor extends Base {
   async sendAndReturnOTP(data: z.infer<typeof sendAndReturnOTPSchema>) {
     try {
       const { phoneNumber, templateName, interval, limit } = data;
-      sendAndReturnOTPSchema.parse({
-        phoneNumber: data.phoneNumber,
-        templateName: data.templateName,
-      });
+      sendAndReturnOTPSchema.parse(data);
       // check rate limit if redis url is provided
       if (this.upstashUrl && this.upstashToken) {
         await rateLimit({

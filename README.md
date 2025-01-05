@@ -12,7 +12,7 @@ npm install 2factor-sdk
 ## Quick Start
 
 ```typescript
-import { TWOFactor } from '@2factor-sdk';
+import { TWOFactor } from '2factor-sdk';
 
 const twofactor = TWOFactor.init({ 
   apiKey: 'YOUR_API_KEY',
@@ -32,12 +32,12 @@ const result = await twofactor.sendOTP({
 
 ## Validation Rules
 
-If any of the validation fails it will throw an error. Wrap the code in try catch to handle the errors.
+If any of the validation fails it will throw an error. Wrap the code in try catch to handle the errors. use handleTFError function to get errors that can be sent to clients.
 
 ### Phone Number
 
 - Must be 10 digits
-- Must start with 7, 8, or 9
+- Must start with 6, 7, 8, or 9  (Indian phone numbers only).
 
 
 ```typescript
@@ -148,7 +148,7 @@ const response = await twofactor.sendCustomOTP({
   phoneNumber: "9XXXXXXXXX", // Required: 10-digit number
   // optional fields
   templateName: "OTP1", // Optional: SMS template
-  otp: "1234", // Required: 4-6 digit OTP
+  otp: "1234", // Required: 4 or 6  digit numeric OTP
   interval: "30 s", // Optional: rate limiting interval (default: '30 s')
   limit: 1 // Optional: rate limiting count (default: 1)
 });
@@ -202,7 +202,7 @@ Returns: `boolean` - true if OTP is valid. Undefined if not valid.
 ```js
 import express from 'express';
 import dotenv from 'dotenv';
-import { TWOFactor, handleTFError } from '@2factor-sdk';
+import { TWOFactor, handleTFError } from '2factor-sdk';
 
 // Load environment variables
 dotenv.config();
@@ -227,9 +227,9 @@ app.post('/send-otp', async (req, res) => {
   try {
     // Send OTP
     const result = await tf.sendOTP({
-      phoneNumber: phoneNumber.toString(),
+      phoneNumber: phoneNumber,
       limit: 1,
-      interval: '3 m'
+      interval: '30 s'
     });
 
     return res.json({
