@@ -1,7 +1,7 @@
 
 # 2Factor.in SDK
 
-An sdk for [2Factor.in]("https://2factor.in") SMS OTP service with support for rate limiting and built-in validation using Zod.
+An sdk for [2Factor]("https://2factor.in") SMS OTP service with support for rate limiting and built-in validation using Zod.
 
 ## Installation
 
@@ -10,6 +10,9 @@ npm install 2factor-sdk
 ```
 
 ## Quick Start
+
+
+- Go to [2factor](https://2factor.in/) , sign up and get the api key.
 
 ```typescript
 import { TWOFactor } from '2factor-sdk';
