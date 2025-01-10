@@ -1,6 +1,6 @@
 {
   "name": "2factor-sdk",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A TypeScript SDK for sending and validating OTPs with support for rate limiting.",
   "type": "module",
   "main": "./lib/index.js",
