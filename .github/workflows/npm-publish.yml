@@ -9,7 +9,6 @@ jobs:
  setup-git:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - name: Set up Git
         run: |
           git config user.email "fateennisar121@gmail.com" 
