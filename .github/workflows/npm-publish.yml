@@ -15,6 +15,7 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build 
+      - run: npm version patch
 
   publish-npm:
     needs: build
