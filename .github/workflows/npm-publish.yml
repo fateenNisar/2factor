@@ -6,15 +6,7 @@ on:
 
 
 jobs:
- setup-git:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Git
-        run: |
-          git config user.email "fateennisar121@gmail.com" 
-          git config user.name "fateennisar"
  build:
-    needs: setup-git
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +15,8 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build 
-      - run: npm version patch
+      - run: npm version patch --no-git-tag-version
+
 
  publish-npm:
     needs: build
