@@ -6,6 +6,20 @@ on:
 
 
 jobs:
+ version:
+    runs-on: ubuntu-latest
+    steps:
+        - run: npm version patch --no-git-tag-version
+  
+ commit:
+    needs: version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+         git add package.json package-lock.json
+         git commit -m "Bump version"
+         git push
  build:
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +29,6 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build 
-      - run: npm version patch --no-git-tag-version
 
 
  publish-npm:
